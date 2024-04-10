@@ -1,0 +1,66 @@
+<!--
+ * @Author: wufengliang 44823912@qq.com
+ * @Date: 2024-04-07 14:41:42
+ * @LastEditTime: 2024-04-09 14:14:13
+ * @Description: 
+-->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>OffsetX Example</title>
+<style>
+
+    *{
+        margin:0;
+        padding:0;
+    }
+
+    #target {
+        width: 300px;
+        height: 200px;
+        background-color: lightblue;
+        position: relative;
+    }
+</style>
+</head>
+<body>
+
+<div id="target">
+    Click Me
+</div>
+<!-- <img id="target" src="https://imagekit.io/blog/content/images/2020/06/LinkedIn-1200_628.png" /> -->
+
+<script>
+    var target = document.getElementById('target');
+    var isDown = false;
+    var startPoint = {x:0,y:0};
+
+    target.addEventListener('pointerdown', function(event) {
+        var x = event.offsetX;
+        var y = event.offsetY;
+        startPoint = {x,y};
+        isDown = true;
+    });
+
+    document.addEventListener('pointermove', function(event) {
+        if(!isDown){
+            return;
+        }
+        var clientX = event.clientX;
+        var clientY = event.clientY;
+        var _x = clientX - startPoint.x,
+        _y = clientY - startPoint.y;
+        const cssText = `transform:translate(${_x}px,${_y}px);`;
+        console.log(cssText);
+        target.style.cssText = cssText;
+    });
+
+    target.addEventListener('pointerup',()=>{
+        isDown = false;
+    })
+</script>
+
+</body>
+</html>
